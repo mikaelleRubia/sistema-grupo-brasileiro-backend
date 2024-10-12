@@ -16,4 +16,4 @@ EXPOSE 8080
 
 COPY --from=build /target/ .
 
-ENTRYPOINT ["java", "-jar", "sistema-grupo-brasileiro-backend-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /target/sistema-grupo-brasileiro-backend-0.0.1-SNAPSHOT.jar --server.port=${PORT:-8080}"]
