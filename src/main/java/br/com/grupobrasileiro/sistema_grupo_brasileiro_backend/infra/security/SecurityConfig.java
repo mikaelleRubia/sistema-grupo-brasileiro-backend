@@ -29,6 +29,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
+                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Habilita CORS
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
@@ -37,7 +38,6 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/requestReset").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/resetPassword").permitAll()
                         .requestMatchers("/swagger-ui/*", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
-
                         // Restrição de acesso para Supervisores
                         .requestMatchers(HttpMethod.PUT, "/api/v1/projects/{id}/assignCollaborator").hasRole("SUPERVISOR")
                         .requestMatchers(HttpMethod.GET, "/api/v1/employees/allCollaborators").hasRole("SUPERVISOR")
@@ -45,33 +45,33 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/api/v1/employees/{id}/hasProduction").hasRole("SUPERVISOR")
                         .requestMatchers(HttpMethod.PUT, "/api/v1/employees/{id}/finish").hasRole("SUPERVISOR")
                         .requestMatchers(HttpMethod.PUT, "/api/v1/employees/{id}/standby").hasRole("SUPERVISOR")
-
                         // Restrição de acesso para Colaboradores
-
-
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200")); // Permita o front-end
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Métodos permitidos
+        configuration.setAllowedHeaders(Arrays.asList("*")); // Permita todos os cabeçalhos
+        configuration.setAllowCredentials(true); // Permita credenciais
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration); // Permita todas as rotas
+        return source;
+    }
+
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {return new BCryptPasswordEncoder();}
-
-        @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200")); 
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); 
-        configuration.setAllowCredentials(true); 
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration); 
-        return source;
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
-
 }
