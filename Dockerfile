@@ -14,6 +14,10 @@ ENV JAVA_OPTS="-Djava.util.prefs.userRoot=/dev/null -Djava.util.prefs.systemRoot
 
 EXPOSE 8080
 
-COPY --from=build /target/ .
+COPY --from=build /target/sistema-grupo-brasileiro-backend-0.0.1-SNAPSHOT.jar .
+
+# Copiando a chave privada e definindo permissões
+COPY cepedi.pem /app/cepedi.pem
+RUN chmod 600 /app/cepedi.pem
 
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /sistema-grupo-brasileiro-backend-0.0.1-SNAPSHOT.jar --server.port=${PORT:-8080}"]
