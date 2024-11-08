@@ -18,7 +18,7 @@ COPY --from=build /target/sistema-grupo-brasileiro-backend-0.0.1-SNAPSHOT.jar .
 
 # Copiando a chave privada e definindo permissões
 # Copia a chave privada e define permissões (caso necessário para a aplicação)
-COPY ./certificates/cepedi.pem /etc/ssl/private/cepedi.pem
+COPY /certificates/cepedi.pem /etc/ssl/private/cepedi.pem
 RUN chmod 600 /etc/ssl/private/cepedi.pem
 
 # Configuração do diretório de uploads
