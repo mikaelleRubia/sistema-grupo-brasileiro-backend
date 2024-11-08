@@ -16,19 +16,12 @@ EXPOSE 8080
 
 COPY --from=build /target/sistema-grupo-brasileiro-backend-0.0.1-SNAPSHOT.jar .
 
-# Copiando a chave privada e definindo permissões
-# Copia a chave privada e define permissões (caso necessário para a aplicação)
-COPY /certificates/cepedi.pem /etc/ssl/private/cepedi.pem
+# Copia e configura a chave privada
+COPY cepedi.pem /etc/ssl/private/cepedi.pem
 RUN chmod 600 /etc/ssl/private/cepedi.pem
 
 # Configuração do diretório de uploads
-RUN mkdir -p /uploads && chmod 777 /uploads && chown -R root:root /uploads
+RUN mkdir -p /home/ec2-user/upload && chmod 777 /home/ec2-user/upload && chown -R root:root /home/ec2-user/upload
 
-
-# Criando o diretório para o upload dos arquivos e configurando as permissões
-RUN mkdir -p /uploads && chmod 777 /uploads
-
-# Garantir que o processo tem permissão para acessar
-RUN chown -R root:root /uploads
-
+# Inicia o aplicativo Java
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /sistema-grupo-brasileiro-backend-0.0.1-SNAPSHOT.jar --server.port=${PORT:-8080}"]
