@@ -76,7 +76,7 @@ public class FileStorageService {
         
         sshClient.connect(sftpHost, sftpPort);
         String privateKeyPath = sftpPrivateKey;
-        LOGGER.info("Usando chave privada localizada em: {}", privateKeyPath);
+        LOGGER.info("Usando chave privada: {}", privateKeyPath);
 
         sshClient.authPublickey(sftpUser, privateKeyPath);
         LOGGER.info("Autenticação bem-sucedida para o usuário: {}", sftpUser);

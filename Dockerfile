@@ -14,7 +14,7 @@ ENV JAVA_OPTS="-Djava.util.prefs.userRoot=/dev/null -Djava.util.prefs.systemRoot
 
 EXPOSE 8080
 
-COPY --from=build /target/sistema-grupo-brasileiro-backend-0.0.1-SNAPSHOT.jar .
+COPY --from=build /target/ .
 
 # Copia e configura a chave privada
 COPY cepedi.pem /etc/ssl/private/cepedi.pem
