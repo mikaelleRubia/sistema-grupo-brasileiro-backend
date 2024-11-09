@@ -75,7 +75,9 @@ public class FileStorageService {
         LOGGER.info("Conectando ao servidor SFTP em {}:{}", sftpHost, sftpPort);
         
         sshClient.connect(sftpHost, sftpPort);
-        String privateKeyPath = sftpPrivateKey;
+        // String privateKeyPath_local = sftpPrivateKey;
+        String privateKeyPath = "/etc/ssl/private/cepedi.pem";
+        
         LOGGER.info("Usando chave privada: {}", privateKeyPath);
 
         sshClient.authPublickey(sftpUser, privateKeyPath);

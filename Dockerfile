@@ -21,7 +21,7 @@ COPY cepedi.pem /etc/ssl/private/cepedi.pem
 RUN chmod 600 /etc/ssl/private/cepedi.pem
 
 # Configuração do diretório de uploads
-RUN mkdir -p /home/ec2-user/upload && chmod 777 /home/ec2-user/upload && chown -R root:root /home/ec2-user/upload
+RUN mkdir -p /home/ec2-user/upload && chmod 700 /home/ec2-user/upload && chown -R root:root /home/ec2-user/upload
 
 # Inicia o aplicativo Java
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /sistema-grupo-brasileiro-backend-0.0.1-SNAPSHOT.jar --server.port=${PORT:-8080}"]
