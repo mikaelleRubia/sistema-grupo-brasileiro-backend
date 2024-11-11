@@ -68,9 +68,11 @@ public class FileStorageService {
     private SSHClient connectToSFTPServer() throws IOException {
         SSHClient sshClient = new SSHClient();
         sshClient.addHostKeyVerifier(new PromiscuousVerifier());
+        
         sshClient.connect(sftpHost, sftpPort);
-        String privateKey = System.getProperty("user.dir") + File.separator + sftpPrivateKey;
-        sshClient.authPublickey(sftpUser, privateKey);
+        String privateKeyPath = "/etc/ssl/private/cepedi.pem";
+        
+        sshClient.authPublickey(sftpUser, privateKeyPath);
         return sshClient;
     }
 
