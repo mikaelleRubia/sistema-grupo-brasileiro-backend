@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  Local-postgres-compose:
+  local-postgres-compose:
     image: postgres
     environment:
       POSTGRES_PASSWORD: "123"
@@ -18,15 +18,14 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://Local-postgres-compose:5432/grupobrasileiro
+      SPRING_DATASOURCE_URL: jdbc:postgresql://local-postgres-compose:5432/grupobrasileiro
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: 123
     depends_on:
-      - postgres
+      - local-postgres-compose
     networks:
       - postgres-compose-network
 
 networks:
   postgres-compose-network:
     driver: bridge
-    
