@@ -10,10 +10,6 @@ RUN mvn clean install
 
 FROM openjdk:17-jdk-slim
 
-ENV SPRING_DATASOURCE_URL=jdbc:postgresql:/local-postgres-compose:5432/grupobrasileiro
-ENV SPRING_DATASOURCE_USERNAME=postgres
-ENV SPRING_DATASOURCE_PASSWORD=123
-
 ENV JAVA_OPTS="-Djava.util.prefs.userRoot=/dev/null -Djava.util.prefs.systemRoot=/dev/null"
 EXPOSE 8080
 
