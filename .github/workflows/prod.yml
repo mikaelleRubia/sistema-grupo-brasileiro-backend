@@ -27,9 +27,9 @@ jobs:
               
     deploy:
         needs: build
-        runs-on: ubuntu-latest
+        runs-on: self-hosted
         steps:
             - name: Pull Docker Image
               run: docker pull mikaelle2rubia/springservice:latest
             - name: Run Docker Container
-              run: docker run -d -p 8080:8080 --name grupobrasileirodeploy --network networksisbrasileiro springservice
+              run: docker run -d -p 8080:8080 --name grupobrasileirodeploy springservice
