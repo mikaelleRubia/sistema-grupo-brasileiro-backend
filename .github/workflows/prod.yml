@@ -1,0 +1,35 @@
+name: Deploy Application
+
+on:
+    push:
+        branches: [deploy-cepedi]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+            - name: Setup Java 
+              uses: actions/setup-java@v3
+              with:
+                  distribution: 'temurin'
+                  java-version: '17'
+            - name: Build project
+              run: mvn clean install -DskipTests
+            - name: Login Deploy Hub
+              run: docker login -u mikaelle2rubia -p rubia0579
+            - name: Build docker image
+              run: docker build -t mikaelle2rubia/springservice .
+            - name: Push docker image
+              run: docker push mikaelle2rubia/springservice
+              
+    deploy:
+        needs: build
+        runs-on: ubuntu-latest
+        steps:
+            - name: Pull Docker Image
+              run: docker pull mikaelle2rubia/springservice:latest
+            - name: Run Docker Container
+              run: docker run -d -p 8080:8080 --name grupobrasileirodeploy --network networksisbrasileiro springservice

@@ -1,10 +1,12 @@
 package br.com.grupobrasileiro.sistema_grupo_brasileiro_backend.mapper.briefings.gifts.view;
 
+import br.com.grupobrasileiro.sistema_grupo_brasileiro_backend.mapper.briefings.printed.view.PrintingTypeViewMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.grupobrasileiro.sistema_grupo_brasileiro_backend.dto.briefings.gifts.view.BGiftView;
 import br.com.grupobrasileiro.sistema_grupo_brasileiro_backend.mapper.Mapper;
+import br.com.grupobrasileiro.sistema_grupo_brasileiro_backend.mapper.briefings.printed.view.PrintingTypeViewMapper;
 import br.com.grupobrasileiro.sistema_grupo_brasileiro_backend.model.briefings.gifts.BGift;
 
 @Component
