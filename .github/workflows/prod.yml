@@ -19,7 +19,7 @@ jobs:
             - name: Build project
               run: mvn clean install -DskipTests
             - name: Login Deploy Hub
-              run: docker login -u mikaelle2rubia -p rubia0579
+              run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASSWORD}}
             - name: Build docker image
               run: docker build -t mikaelle2rubia/springservice .
             - name: Push docker image
