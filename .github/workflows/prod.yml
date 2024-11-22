@@ -31,5 +31,7 @@ jobs:
         steps:
             - name: Pull Docker Image
               run: docker pull mikaelle2rubia/springservice:latest
+            - name: Remove Docker Container
+              run: docker rm -f grupobrasileirodeploy
             - name: Run Docker Container
               run: docker run -d -p 8081:8080 -e DATABASE_USER=${{secrets.DATABASE_USER}} -e DATABASE_PASSWORD='${{secrets.DATABASE_PASSWORD}}' -e DATABASE_URL=${{secrets.DATABASE_URL}} --name grupobrasileirodeploy mikaelle2rubia/springservice
