@@ -38,15 +38,7 @@ jobs:
             - name: Remove existing PostgreSQL container
               run: docker rm -f grupobrasileiro_db || true
             - name: Run PostgreSQL container
-              run: |
-                docker run -d \
-                  --name grupobrasileiro_db \
-                  --network networksisbrasileiro \
-                  -p 5433:5432 \
-                  -e POSTGRES_USER=${{secrets.DATABASE_USER}} \
-                  -e POSTGRES_PASSWORD=${{secrets.DATABASE_PASSWORD}} \
-                  -e POSTGRES_DB=${{secrets.DATABASE_NAME}} \
-                  mikaelle2rubia/postgres_db:latest
+              run: docker run -d --name grupobrasileiro_db -p 5433:5432 --network networksisbrasileiro mikaelle2rubia/postgres_db
 
             - name: Wait for PostgreSQL to be ready
               run: |
@@ -55,12 +47,4 @@ jobs:
                   sleep 2
                 done
             - name: Run Docker Container
-              run: |
-                docker run -d \
-                  --name grupobrasileirodeploy \
-                  --network networksisbrasileiro \
-                  -p 8081:8080 \
-                  -e DATABASE_USER=${{secrets.DATABASE_USER}} \
-                  -e DATABASE_PASSWORD='${{secrets.DATABASE_PASSWORD}}' \
-                  -e DATABASE_URL=${{secrets.DATABASE_URL}} \
-                  mikaelle2rubia/springservice
+              run: docker run -d -p 8081:8080 --name grupobrasileirodeploy --network networksisbrasileiro mikaelle2rubia/springservice
