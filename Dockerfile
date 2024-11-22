@@ -8,7 +8,7 @@ RUN mvn clean install
 
 FROM openjdk:17-jdk-slim
 
-EXPOSE 8080
+EXPOSE 8081
 
 
 COPY target/sistema-grupo-brasileiro-backend-0.0.1-SNAPSHOT.jar /app/app.jar
