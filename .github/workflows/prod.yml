@@ -32,4 +32,4 @@ jobs:
             - name: Pull Docker Image
               run: docker pull mikaelle2rubia/springservice:latest
             - name: Run Docker Container
-              run: docker run --rm -d -p 8081:8080 --name grupobrasileirodeploy mikaelle2rubia/springservice
+              run: docker run -d -p 8081:8080 --name grupobrasileirodeploy mikaelle2rubia/springservice
