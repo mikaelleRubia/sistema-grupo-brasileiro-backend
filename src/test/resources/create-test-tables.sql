@@ -1,5 +1,5 @@
 -- Tabela para Project
-CREATE TABLE IF NOT EXISTS public."Tb_Projects" (
+CREATE TABLE IF NOT EXISTS IF NOT EXISTS public."Tb_Projects" (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     status VARCHAR(255),
@@ -11,13 +11,13 @@ CREATE TABLE IF NOT EXISTS public."Tb_Projects" (
 );
 
 -- Tabela para BriefingType
-CREATE TABLE IF NOT EXISTS public."Tb_BriefingTypes" (
+CREATE TABLE IF NOT EXISTS IF NOT EXISTS public."Tb_BriefingTypes" (
     id SERIAL PRIMARY KEY,
     description VARCHAR(255) NOT NULL
 );
 
 -- Tabela para Briefing
-CREATE TABLE IF NOT EXISTS public."Tb_Briefings" (
+CREATE TABLE IF NOT EXISTS IF NOT EXISTS public."Tb_Briefings" (
     id SERIAL PRIMARY KEY,
     detailed_description TEXT,
     start_time DATE,
@@ -30,37 +30,37 @@ CREATE TABLE IF NOT EXISTS public."Tb_Briefings" (
 );
 
 -- Tabela para GiftType
-CREATE TABLE IF NOT EXISTS public."Tb_GiftTypes" (
+CREATE TABLE IF NOT EXISTS IF NOT EXISTS public."Tb_GiftTypes" (
     id SERIAL PRIMARY KEY,
     description VARCHAR(255) NOT NULL
 );
 
 -- Tabela para PrintingType
-CREATE TABLE IF NOT EXISTS public."Tb_PrintingTypes" (
+CREATE TABLE IF NOT EXISTS IF NOT EXISTS public."Tb_PrintingTypes" (
     id SERIAL PRIMARY KEY,
     description VARCHAR(255) NOT NULL
 );
 
 -- Tabela para PrintingShirtType
-CREATE TABLE IF NOT EXISTS public."Tb_PrintingShirtTypes" (
+CREATE TABLE IF NOT EXISTS IF NOT EXISTS public."Tb_PrintingShirtTypes" (
     id SERIAL PRIMARY KEY,
     description VARCHAR(255) NOT NULL
 );
 
 -- Tabela para Stamp
-CREATE TABLE IF NOT EXISTS public."Tb_Stamps" (
+CREATE TABLE IF NOT EXISTS IF NOT EXISTS public."Tb_Stamps" (
     id SERIAL PRIMARY KEY,
     description VARCHAR(255) NOT NULL
 );
 
 -- Tabela para CalendarType
-CREATE TABLE IF NOT EXISTS public."Tb_CalendarTypes" (
+CREATE TABLE IF NOT EXISTS IF NOT EXISTS public."Tb_CalendarTypes" (
     id SERIAL PRIMARY KEY,
     description VARCHAR(255) NOT NULL
 );
 
 -- Tabela para BGift
-CREATE TABLE IF NOT EXISTS public."Tb_BGifts" (
+CREATE TABLE IF NOT EXISTS IF NOT EXISTS public."Tb_BGifts" (
     id SERIAL PRIMARY KEY,
     gift_model VARCHAR(255),
     link_model VARCHAR(255),
@@ -122,7 +122,7 @@ DROP TABLE IF EXISTS public."Tb_Employees" CASCADE;
 DROP TABLE IF EXISTS public."Tb_Profiles" CASCADE;
 
 -- Criar tabelas
--- (seus comandos CREATE TABLE aqui)
+-- (seus comandos CREATE TABLE IF NOT EXISTS aqui)
 
 -- Truncar tabelas (caso já existam dados)
 TRUNCATE TABLE public."Tb_BGifts" CASCADE;
@@ -165,12 +165,12 @@ DROP TABLE IF EXISTS "Tb_Users" CASCADE;
 DROP TABLE IF EXISTS "Tb_Profiles" CASCADE;
 
 -- Criar tabelas
-CREATE TABLE "Tb_Profiles" (
+CREATE TABLE IF NOT EXISTS "Tb_Profiles" (
     id SERIAL PRIMARY KEY,
     description VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE "Tb_Users" (
+CREATE TABLE IF NOT EXISTS "Tb_Users" (
     id SERIAL PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
@@ -179,7 +179,7 @@ CREATE TABLE "Tb_Users" (
     FOREIGN KEY (id_profile) REFERENCES "Tb_Profiles" (id)
 );
 
-CREATE TABLE "Tb_Employees" (
+CREATE TABLE IF NOT EXISTS "Tb_Employees" (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     lastname VARCHAR(255) NOT NULL,
@@ -192,7 +192,7 @@ CREATE TABLE "Tb_Employees" (
     FOREIGN KEY (id_user) REFERENCES "Tb_Users" (id)
 );
 
-CREATE TABLE "Tb_Projects" (
+CREATE TABLE IF NOT EXISTS "Tb_Projects" (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     status VARCHAR(255),
@@ -203,12 +203,12 @@ CREATE TABLE "Tb_Projects" (
     FOREIGN KEY (id_client) REFERENCES "Tb_Employees" (id)
 );
 
-CREATE TABLE "Tb_BriefingTypes" (
+CREATE TABLE IF NOT EXISTS "Tb_BriefingTypes" (
     id SERIAL PRIMARY KEY,
     description VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE "Tb_Briefings" (
+CREATE TABLE IF NOT EXISTS "Tb_Briefings" (
     id SERIAL PRIMARY KEY,
     detailed_description TEXT,
     start_time DATE,
