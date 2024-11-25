@@ -29,22 +29,9 @@ jobs:
         needs: build
         runs-on: self-hosted
         steps:
-            - name: Pull PostgreSQL Docker image
-              run: docker pull mikaelle2rubia/postgres_db:latest
             - name: Pull Docker Image
               run: docker pull mikaelle2rubia/springservice:latest
             - name: Remove Docker Container
               run: docker rm -f grupobrasileirodeploy || true
-            - name: Remove existing PostgreSQL container
-              run: docker rm -f grupobrasileiro_db || true
-            - name: Run PostgreSQL container
-              run: docker run -d --name grupobrasileiro_db -p 5433:5432 --network networksisbrasileiro mikaelle2rubia/postgres_db
-
-            - name: Wait for PostgreSQL to be ready
-              run: |
-                echo "Waiting for PostgreSQL to start..."
-                until docker exec grupobrasileiro_db pg_isready -U ${{secrets.DATABASE_USER}} -d ${{secrets.DATABASE_NAME}}; do
-                  sleep 2
-                done
             - name: Run Docker Container
               run: docker run -d -p 8081:8081 --name grupobrasileirodeploy --network networksisbrasileiro mikaelle2rubia/springservice
