@@ -17,6 +17,7 @@ import br.com.grupobrasileiro.sistema_grupo_brasileiro_backend.service.email.Ema
 import lombok.extern.java.Log;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,6 +31,9 @@ import org.thymeleaf.context.Context;
 
 @Service
 public class AuthService implements UserDetailsService {
+
+    @Value("${frontend.url}") 
+    private String frontendUrl;
 
     @Autowired
     private  UserRepository userRepository;
@@ -65,12 +69,13 @@ public class AuthService implements UserDetailsService {
     }
 
     public void requestRecoveryPassword(RecoveryPasswordForm form) {
+
         User user = userRepository.findByEmail(form.email()).orElseThrow(
                 () -> new EntityNotFoundException("User not found for email: " + form.email())
         );
 
         String token = tokenService.generateToken(user);
-        String resetUrl = "http://localhost:4200/resetPassword?token=" + token;
+        String resetUrl = frontendUrl+"/resetPassword?token=" + token;
         String userName = user.getEmployee().getName() + " " + user.getEmployee().getLastName();
 
         Context context = new Context();
